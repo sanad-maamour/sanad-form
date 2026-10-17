@@ -1,243 +1,621 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <title>SANAD MAAMOUR | Property Advisory</title>
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/css/intlTelInput.css">
+
 <style>
-  :root{--navy:#0B1F3B;--gold:#C8A24A;}
+  :root{
+    --navy:#0f2a44; --gold:#c9a24a; --bg:#f5f6f8; --card:#fff;
+    --text:#111827; --muted:#6b7280; --border:#d1d5db; --green:#25D366;
+  }
   *{box-sizing:border-box}
-  body{font-family:Arial,Helvetica,sans-serif;background:#f4f5f7;margin:0;padding:16px;color:#1F2328}
-  .card{max-width:560px;margin:0 auto;background:#fff;border-radius:16px;padding:22px;box-shadow:0 6px 20px rgba(0,0,0,.08)}
-  .brand{text-align:center;border-bottom:2px solid var(--gold);padding-bottom:12px;margin-bottom:8px}
-  .brand h1{margin:0;font-size:22px;letter-spacing:2px;color:var(--navy)}
-  .brand small{color:#6b7280}
-  label{display:block;margin-top:14px;font-weight:700;font-size:14px}
-  select,input[type=text],input[type=tel]{width:100%;padding:13px;border:1px solid #d1d5db;border-radius:10px;margin-top:6px;font-size:16px;background:#fff}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--text)}
+  .wrap{max-width:640px;margin:0 auto;padding:16px}
+  .brand{display:flex;gap:12px;align-items:center;justify-content:center;padding:18px 10px 8px}
+  .logo{width:52px;height:52px;border-radius:12px;object-fit:contain;background:#fff;border:1px solid rgba(0,0,0,.06)}
+  .btxt{text-align:center}
+  .btxt h1{margin:0;font-size:20px;color:var(--navy);letter-spacing:.5px}
+  .btxt p{margin:4px 0 0;color:var(--gold);font-weight:700;font-size:13px}
+  .card{background:var(--card);border-radius:16px;padding:18px;box-shadow:0 4px 18px rgba(0,0,0,.06);margin-top:12px}
+  .title{margin:0;font-size:18px;color:var(--navy)}
+  .sub{margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.7}
+  .line{margin-top:14px;border-top:1px solid rgba(0,0,0,.06)}
+  .lbl{margin:14px 0 6px;font-weight:800;font-size:13px}
+  .lbl .en{display:block;direction:ltr;text-align:left}
+  .lbl .ar{display:block;direction:rtl;text-align:right;font-weight:700;color:#374151}
+  .req{color:#dc2626}
+  input, select, textarea{
+    width:100%;padding:12px;border:1px solid var(--border);border-radius:12px;font-size:16px;background:#fff;color:var(--text)
+  }
+  textarea{min-height:90px;resize:vertical}
+  input:focus, select:focus, textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(15,42,68,.12)}
+  .hint{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5}
+  .phone-wrap{direction:ltr}
   .iti{width:100%}
-  .iti input{direction:ltr;text-align:left}
-  button{margin-top:22px;width:100%;padding:15px;border:0;border-radius:12px;background:var(--navy);color:#fff;font-size:17px;font-weight:700;cursor:pointer}
-  button:disabled{background:#9ca3af}
-  .note{display:block;color:#6b7280;font-size:12px;margin-top:12px;text-align:center;line-height:1.6}
-  #fallback{display:none;text-align:center;margin-top:14px}
-  #fallback a{color:var(--navy);font-weight:700}
-  .opt{color:#9ca3af;font-weight:400}
+  .btn{
+    display:block;width:100%;border:none;border-radius:12px;padding:14px;
+    font-size:17px;font-weight:900;cursor:pointer;margin-top:18px;text-align:center;text-decoration:none
+  }
+  .btn-primary{background:var(--navy);color:#fff}
+  .btn-primary:disabled{opacity:.6;cursor:not-allowed}
+  .btn-wa{background:var(--green);color:#fff}
+  .hidden{display:none !important}
+  .err{background:#fef2f2;color:#b91c1c;border:1px solid #fecaca;border-radius:12px;padding:10px;font-size:14px;margin-top:12px;line-height:1.6}
+  .success{text-align:center;padding:6px 0}
+  .check{width:72px;height:72px;border-radius:50%;background:#dcfce7;color:#16a34a;font-size:40px;line-height:72px;margin:0 auto 12px}
+  .footer{text-align:center;color:var(--muted);font-size:12px;padding:16px 0 24px;line-height:1.7}
+  .grid2{display:grid;grid-template-columns:1fr;gap:12px}
+  @media(min-width:560px){.grid2{grid-template-columns:1fr 1fr}}
 </style>
 </head>
+
 <body>
-<div class="card">
+<div class="wrap">
+
   <div class="brand">
-    <h1>SANAD MAAMOUR</h1>
-    <small id="tag"></small>
+    <!-- لو رفعت logo.png في نفس الريبو هتظهر تلقائيًا -->
+    <img class="logo" src="logo.png" alt="SANAD MAAMOUR Logo" onerror="this.style.display='none'">
+    <div class="btxt">
+      <h1>SANAD MAAMOUR</h1>
+      <p>Property Advisory | استشارات عقارية</p>
+    </div>
   </div>
 
-  <form id="leadForm" novalidate>
-    <label id="nameLbl"></label>
-    <input id="name" type="text" autocomplete="name">
+  <div class="card" id="formCard">
+    <h2 class="title">Send your request</h2>
+    <p class="sub">
+      Fill the form and we will contact you with matched available options.<br>
+      املأ النموذج وسنتواصل معك بالخيارات المتاحة المناسبة لاحتياجك.
+    </p>
 
-    <label id="phoneLbl"></label>
-    <input id="phone" type="tel" autocomplete="tel">
+    <form id="leadForm" novalidate>
 
-    <div id="fields"></div>
+      <div class="grid2">
+        <div>
+          <div class="lbl">
+            <span class="en">Country <span class="req">*</span></span>
+            <span class="ar">الدولة <span class="req">*</span></span>
+          </div>
+          <select id="country" required></select>
+        </div>
 
-    <button type="submit" id="btn"></button>
-    <span class="note" id="note"></span>
-    <div id="fallback"><a id="fallbackLink" href="#"></a></div>
-  </form>
+        <div>
+          <div class="lbl">
+            <span class="en">I want to <span class="req">*</span></span>
+            <span class="ar">أنا عايز <span class="req">*</span></span>
+          </div>
+          <select id="action" required></select>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div>
+          <div class="lbl">
+            <span class="en">Name <span class="req">*</span></span>
+            <span class="ar">الاسم <span class="req">*</span></span>
+          </div>
+          <input type="text" id="name" autocomplete="name" required>
+        </div>
+
+        <div>
+          <div class="lbl">
+            <span class="en">WhatsApp number <span class="req">*</span></span>
+            <span class="ar">رقم الواتساب <span class="req">*</span></span>
+          </div>
+          <div class="phone-wrap">
+            <input type="tel" id="phone" autocomplete="tel" required>
+          </div>
+          <div class="hint">Select your country code then type your number. | اختر كود الدولة ثم اكتب الرقم</div>
+        </div>
+      </div>
+
+      <div class="line"></div>
+
+      <div class="grid2">
+        <div>
+          <div class="lbl">
+            <span class="en">Area / Emirate <span class="req">*</span></span>
+            <span class="ar">المنطقة / الإمارة <span class="req">*</span></span>
+          </div>
+          <select id="area" required></select>
+        </div>
+
+        <div>
+          <div class="lbl">
+            <span class="en">Unit type <span class="req">*</span></span>
+            <span class="ar">نوع الوحدة <span class="req">*</span></span>
+          </div>
+          <select id="unitType" required></select>
+        </div>
+      </div>
+
+      <!-- BUY SECTION -->
+      <div id="buySection" class="hidden">
+        <div class="grid2">
+          <div>
+            <div class="lbl">
+              <span class="en">Budget <span class="req">*</span></span>
+              <span class="ar">الميزانية <span class="req">*</span></span>
+            </div>
+            <select id="buyBudget"></select>
+          </div>
+
+          <div>
+            <div class="lbl" id="purposeLbl">
+              <span class="en">Purpose / Source <span class="req">*</span></span>
+              <span class="ar">الغرض / المصدر <span class="req">*</span></span>
+            </div>
+            <select id="purposeOrSource"></select>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div>
+            <div class="lbl">
+              <span class="en">Timeline / Delivery <span class="req">*</span></span>
+              <span class="ar">المدة / الاستلام <span class="req">*</span></span>
+            </div>
+            <select id="timelineOrDelivery"></select>
+          </div>
+
+          <div>
+            <div class="lbl">
+              <span class="en">Available down payment <span class="req">*</span></span>
+              <span class="ar">المقدم المتاح <span class="req">*</span></span>
+            </div>
+            <select id="downPayment"></select>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div>
+            <div class="lbl">
+              <span class="en">Down payment amount (optional)</span>
+              <span class="ar">قيمة المقدم (اختياري)</span>
+            </div>
+            <input type="number" id="downPaymentAmount" inputmode="numeric" min="0" placeholder="Number فقط">
+            <div class="hint" id="dpCurrencyHint"></div>
+          </div>
+
+          <div id="installWrap" class="hidden">
+            <div class="lbl">
+              <span class="en">Max monthly installment (optional)</span>
+              <span class="ar">أقصى قسط شهري (اختياري)</span>
+            </div>
+            <input type="number" id="maxInstallment" inputmode="numeric" min="0" placeholder="EGP">
+          </div>
+        </div>
+      </div>
+
+      <!-- RENT-IN SECTION -->
+      <div id="rentInSection" class="hidden">
+        <div class="grid2">
+          <div>
+            <div class="lbl">
+              <span class="en">Monthly budget <span class="req">*</span></span>
+              <span class="ar">ميزانية الإيجار شهريًا <span class="req">*</span></span>
+            </div>
+            <select id="rentBudget"></select>
+          </div>
+          <div>
+            <div class="lbl">
+              <span class="en">Move-in timeline <span class="req">*</span></span>
+              <span class="ar">موعد الانتقال <span class="req">*</span></span>
+            </div>
+            <select id="rentTimeline"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- SELL / RENT-OUT SECTION -->
+      <div id="sellOutSection" class="hidden">
+        <div class="grid2">
+          <div>
+            <div class="lbl" id="priceLbl">
+              <span class="en">Expected price / rent <span class="req">*</span></span>
+              <span class="ar">السعر / الإيجار المتوقع <span class="req">*</span></span>
+            </div>
+            <input type="number" id="expectedPriceOrRent" inputmode="numeric" min="0">
+            <div class="hint" id="priceCurrencyHint"></div>
+          </div>
+          <div>
+            <div class="lbl">
+              <span class="en">When is it available? (optional)</span>
+              <span class="ar">متاح من امتى؟ (اختياري)</span>
+            </div>
+            <select id="sellOutTimeline"></select>
+          </div>
+        </div>
+      </div>
+
+      <div class="line"></div>
+
+      <div>
+        <div class="lbl">
+          <span class="en">Notes (optional)</span>
+          <span class="ar">ملاحظات (اختياري)</span>
+        </div>
+        <textarea id="notes" placeholder="Write any details… | اكتب أي تفاصيل…"></textarea>
+      </div>
+
+      <div class="err hidden" id="errBox"></div>
+
+      <button type="submit" class="btn btn-primary" id="submitBtn">Submit | إرسال</button>
+    </form>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="card hidden" id="successCard">
+    <div class="success">
+      <div class="check">✓</div>
+      <h2 class="title">Sent successfully</h2>
+      <p class="sub">Your details were saved. Tap below to continue on WhatsApp.<br>تم حفظ بياناتك. اضغط للمتابعة على واتساب.</p>
+      <a id="waBtn" class="btn btn-wa" href="#" target="_blank" rel="noopener">Continue to WhatsApp | متابعة إلى واتساب</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    SANAD MAAMOUR | Property Advisory<br>
+    Egypt & UAE | مصر والإمارات
+  </div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/intlTelInput.min.js"></script>
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzsNFSyLvL0o3nzKpVn-gstT2y2efSBBr2EesnOerzQIlf0ULpvee9NaT1Pjwjyw-az/exec";
-const WA = { eg: "201034613266", uae: "971528534779" };
+/* ================= CONFIG ================= */
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzsNFSyLvL0o3nzKpVn-gstT2y2efSBBr2EesnOerzQIlf0ULpvee9NaT1Pjwjyw-az/exec";
+const WA_NUMBERS = { eg: "201034613266", uae: "971528534779" };
 
-const params = new URLSearchParams(location.search);
-const market = (params.get('market') || 'eg').toLowerCase() === 'uae' ? 'uae' : 'eg';
-const lang   = (params.get('lang')   || 'en').toLowerCase() === 'ar'  ? 'ar'  : 'en';
-const T = (en, ar) => lang === 'ar' ? ar : en;
-
-const d = new Date();
-const autoCampaign = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+const qs = new URLSearchParams(location.search);
+const now = new Date();
+const autoCampaign = now.getFullYear() + "-" + String(now.getMonth()+1).padStart(2,"0");
 const utm = {
-  source:   (params.get('utm_source')   || 'direct').toLowerCase(),
-  medium:   (params.get('utm_medium')   || 'none').toLowerCase(),
-  campaign: (params.get('utm_campaign') || autoCampaign).toLowerCase(),
-  content:  (params.get('utm_content')  || '').toLowerCase()
+  utm_source:   qs.get("utm_source")   || "direct",
+  utm_medium:   qs.get("utm_medium")   || "none",
+  utm_campaign: qs.get("utm_campaign") || autoCampaign,
+  utm_content:  qs.get("utm_content")  || "none",
+  landing_url:  location.href
 };
 
-if (lang === 'ar') { document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl'; }
+// optional preselect: ?country=eg or ?country=uae
+let preCountry = (qs.get("country") || qs.get("market") || "eg").toLowerCase();
+if (preCountry !== "eg" && preCountry !== "uae") preCountry = "eg";
 
-// ---------- Options: [value(English, saved in sheet), Arabic label] ----------
-const AREAS_EG = [
-  ["New October","أكتوبر الجديدة"],["Luxor","الأقصر"],["Alexandria","الإسكندرية"],
-  ["Red Sea","البحر الأحمر"],["Sixth Settlement","التجمع السادس"],["Giza","الجيزة"],
-  ["Hadayek October","حدائق أكتوبر"],["Ras Sedr","رأس سدر"],["Zahraa El Maadi","زهراء المعادي"],
-  ["6th of October","السادس من أكتوبر"],["North Coast","الساحل الشمالي"],["Al Shorouk","الشروق"],
-  ["Sheikh Zayed","الشيخ زايد"],["New Sheikh Zayed","الشيخ زايد الجديدة"],
-  ["New Capital","العاصمة الإدارية"],["Obour","العبور"],["New Obour","العبور الجديدة"],
-  ["New Alamein","العلمين الجديدة"],["Ain Sokhna","العين السخنة"],["New Cairo","القاهرة الجديدة"],
-  ["Badr City","مدينة بدر"],["Nasr City","مدينة نصر"],["Mostakbal City","مستقبل سيتي"],
-  ["Heliopolis","مصر الجديدة"],["Old Cairo","مصر القديمة"],["Maadi","المعادي"],
-  ["Mokattam","المقطم"],["New Mansoura","المنصورة الجديدة"],["New Heliopolis","هليوبوليس الجديدة"]
-];
-const OTHER_AREA = ["Other / Not sure","أخرى / غير محدد"];
-let areaOpts = AREAS_EG.slice();
-if (lang === 'en') areaOpts.sort((a, b) => a[0].localeCompare(b[0]));
-areaOpts.push(OTHER_AREA);
-
-const FIELDS = (market === 'uae') ? [
-  { id:'budget', en:'Budget (AED)', ar:'الميزانية (درهم)', opts:[
-    ["< 500K","أقل من 500 ألف"],["500K - 1M","من 500 ألف إلى مليون"],
-    ["1M - 2M","من مليون إلى 2 مليون"],["2M - 3M","من 2 إلى 3 مليون"]] },
-  { id:'area', en:'Emirate', ar:'الإمارة', opts:[
-    ["Dubai","دبي"],["Abu Dhabi","أبوظبي"],["Any emirate","أي إمارة"]] },
-  { id:'unit', en:'Unit type', ar:'نوع الوحدة', opts:[
-    ["Studio","ستوديو"],["Apartment","شقة"],["Villa","فيلا"]] },
-  { id:'purpose', en:'Purpose', ar:'الغرض', opts:[
-    ["Investment only","استثمار فقط"],["Investment + residency","استثمار + إقامة"],
-    ["Relocation / living","للانتقال والسكن"]] },
-  { id:'source', en:'Purchase timeline', ar:'موعد الشراء', opts:[
-    ["0-3 months","من 0 إلى 3 شهور"],["3-6 months","من 3 إلى 6 شهور"],["6-12 months","من 6 إلى 12 شهر"]] },
-  { id:'dp', en:'Down payment', ar:'المقدم', opts:[
-    ["Cash","كاش"],["10%","10%"],["20%","20%"],["30%","30%"],
-    ["40% or more","40% أو أكثر"],["Not sure","غير محدد"]] },
-  { id:'dpAmount', en:'Down payment amount (AED)', ar:'مبلغ المقدم (درهم)', type:'text', optional:true },
-] : [
-  { id:'budget', en:'Budget (EGP)', ar:'الميزانية (جنيه)', opts:[
-    ["1M - 2M","من 1 إلى 2 مليون"],["2M - 5M","من 2 إلى 5 مليون"],
-    ["5M - 10M","من 5 إلى 10 مليون"],["10M - 25M","من 10 إلى 25 مليون"],
-    ["25M+","أكثر من 25 مليون"]] },
-  { id:'area', en:'Area', ar:'المنطقة', opts: areaOpts },
-  { id:'unit', en:'Unit type', ar:'نوع الوحدة', opts:[
-    ["Residential","سكني"],["Commercial","تجاري"],["Administrative (Office)","إداري"],["Chalet","شاليه"]] },
-  { id:'purpose', en:'Property source', ar:'مصدر الوحدة', opts:[
-    ["New from developer","جديد من المطور"],["Resale (from owner)","إعادة بيع (من مالك)"],
-    ["Either / Not sure","لا يفرق / غير محدد"]] },
-  { id:'source', en:'Delivery', ar:'الاستلام', opts:[
-    ["Ready (immediate)","استلام فوري"],["Within 1 year","خلال سنة"],
-    ["1 - 3 years","من 1 إلى 3 سنوات"],["3+ years","أكثر من 3 سنوات"],["Not sure","غير محدد"]] },
-  { id:'dp', en:'Down payment', ar:'المقدم', opts:[
-    ["Cash","كاش"],["10%","10%"],["15%","15%"],["20%","20%"],["25%","25%"],
-    ["30% or more","30% أو أكثر"],["Not sure","غير محدد"]] },
-  { id:'dpAmount', en:'Down payment amount (EGP)', ar:'مبلغ المقدم (جنيه)', type:'text', optional:true },
-  { id:'install', en:'Max monthly installment (EGP)', ar:'أقصى قسط شهري (جنيه)', type:'text', optional:true },
+/* ================= DATA ================= */
+const countries = [
+  { code:"eg", label:"Egypt | مصر", phoneCountry:"eg", currencyBuy:"EGP", currencyRent:"EGP / month", currencyGeneric:"EGP" },
+  { code:"uae", label:"UAE | الإمارات", phoneCountry:"ae", currencyBuy:"AED", currencyRent:"AED / month", currencyGeneric:"AED" }
 ];
 
-// ---------- Texts ----------
-document.getElementById('tag').textContent = T('Property Advisory | Egypt • UAE','استشارات عقارية | مصر • الإمارات');
-document.getElementById('nameLbl').textContent = T('Name','الاسم');
-document.getElementById('phoneLbl').textContent = T('WhatsApp number','رقم الواتساب');
-document.getElementById('btn').textContent = T('Continue to WhatsApp','متابعة إلى واتساب');
-document.getElementById('note').textContent = T(
-  'By continuing you agree to be contacted about your request. WhatsApp will open with a ready message — tap Send.',
-  'بالمتابعة توافق على التواصل معك بخصوص طلبك. سيفتح واتساب برسالة جاهزة، اضغط إرسال.');
+const actions = [
+  { code:"buy",      label:"Buy | شراء" },
+  { code:"sell",     label:"Sell | بيع" },
+  { code:"rent_in",  label:"Rent (I want to rent) | إيجار (عايز أستأجر)" },
+  { code:"rent_out", label:"Rent out (I have a unit) | تأجير (عندي وحدة للإيجار)" }
+];
 
-// ---------- Build fields ----------
-const box = document.getElementById('fields');
-FIELDS.forEach(f => {
-  const label = document.createElement('label');
-  label.innerHTML = T(f.en, f.ar) + (f.optional ? ' <span class="opt">' + T('(optional)', '(اختياري)') + '</span>' : '');
-  box.appendChild(label);
-  let el;
-  if (f.type === 'text') {
-    el = document.createElement('input'); el.type = 'text';
-  } else {
-    el = document.createElement('select');
-    const ph = document.createElement('option'); ph.value = ''; ph.textContent = T('Select…', 'اختر…'); el.appendChild(ph);
-    f.opts.forEach(o => {
-      const op = document.createElement('option');
-      op.value = o[0]; op.textContent = T(o[0], o[1]); el.appendChild(op);
-    });
-  }
-  el.id = f.id;
-  box.appendChild(el);
-});
+const unitTypes = [
+  "Studio | استوديو",
+  "Apartment | شقة",
+  "Villa | فيلا",
+  "Office | مكتب",
+  "Clinic | عيادة",
+  "Chalet | شاليه",
+  "Beach Villa | فيلا شاطئ"
+];
 
-// ---------- Phone with all country codes ----------
-const phoneEl = document.getElementById('phone');
-const iti = window.intlTelInput(phoneEl, {
-  initialCountry: market === 'uae' ? 'ae' : 'eg',
+// Egypt areas (EN + AR paired by index)
+const EG_AREAS_AR = ["التجمع الخامس","التجمع الأول","التجمع الثالث","القاهرة الجديدة","العاصمة الإدارية الجديدة","مدينتي","الرحاب","المستقبل سيتي","الشروق","العبور","بدر","القطامية","المعادي","مصر الجديدة","مدينة نصر","الزمالك","المهندسين","الدقي","الشيخ زايد","الشيخ زايد الجديدة","6 أكتوبر","أكتوبر الجديدة","حدائق أكتوبر","أكتوبر غرب","حلوان","15 مايو","الإسكندرية","الساحل الشمالي","العلمين الجديدة","رأس الحكمة","مرسى مطروح","العين السخنة","رأس سدر","الغردقة","الجونة","سهل حشيش","شرم الشيخ","المنصورة الجديدة","الأقصر","أسوان"];
+const EG_AREAS_EN = ["5th Settlement","1st Settlement","3rd Settlement","New Cairo","New Administrative Capital","Madinaty","Al Rehab","Mostakbal City","El Shorouk","El Obour","Badr City","Katameya","Maadi","Heliopolis","Nasr City","Zamalek","Mohandessin","Dokki","Sheikh Zayed","New Sheikh Zayed","6th of October","New October","October Gardens","West October","Helwan","15 May City","Alexandria","North Coast","New Alamein","Ras El Hekma","Marsa Matrouh","Ain Sokhna","Ras Sedr","Hurghada","El Gouna","Sahl Hasheesh","Sharm El Sheikh","New Mansoura","Luxor","Aswan"];
+const EG_AREAS = EG_AREAS_EN.map((en,i)=> `${en} | ${EG_AREAS_AR[i]}`).concat(["Other / Not sure | أخرى / غير محدد"]);
+
+const UAE_AREAS = [
+  "Dubai | دبي",
+  "Abu Dhabi | أبوظبي",
+  "Sharjah | الشارقة",
+  "Ajman | عجمان",
+  "Ras Al Khaimah | رأس الخيمة",
+  "Fujairah | الفجيرة",
+  "Umm Al Quwain | أم القيوين",
+  "Any emirate | أي إمارة"
+];
+
+// BUY budgets
+const BUY_BUDGETS = {
+  eg: ["EGP 1–2M | ١–٢ مليون جنيه","EGP 2–5M | ٢–٥ مليون جنيه","EGP 5–10M | ٥–١٠ مليون جنيه","EGP 10–25M | ١٠–٢٥ مليون جنيه","EGP 25M+ | أكثر من ٢٥ مليون جنيه"],
+  uae:["Under AED 500K | أقل من 500 ألف درهم","AED 500K–1M | 500 ألف–1 مليون درهم","AED 1M–2M | 1–2 مليون درهم","AED 2M–3M | 2–3 مليون درهم","AED 3M+ | أكثر من 3 مليون درهم"]
+};
+
+// Rent budgets (monthly)
+const RENT_BUDGETS = {
+  eg: ["EGP 10k–20k | 10–20 ألف جنيه","EGP 20k–40k | 20–40 ألف جنيه","EGP 40k–70k | 40–70 ألف جنيه","EGP 70k+ | أكثر من 70 ألف جنيه","Not sure | غير محدد"],
+  uae:["AED 3k–6k | 3–6 آلاف درهم","AED 6k–12k | 6–12 ألف درهم","AED 12k–20k | 12–20 ألف درهم","AED 20k+ | أكثر من 20 ألف درهم","Not sure | غير محدد"]
+};
+
+const EG_SOURCE = ["New from developer | جديد من المطور","Resale | إعادة بيع","Either | أي منهما"];
+const UAE_PURPOSE = ["Investment | استثمار","Investment + residency | استثمار + إقامة","Relocation / living | انتقال / سكن"];
+
+const BUY_TIMELINE = {
+  eg: ["Ready | استلام فوري","Within 1 year | خلال سنة","1–3 years | من سنة إلى 3 سنوات","3+ years | أكثر من 3 سنوات","Not sure | غير محدد"],
+  uae:["0–3 months | 0–3 شهور","3–6 months | 3–6 شهور","6–12 months | 6–12 شهر","Not sure | غير محدد"]
+};
+
+const DOWNPAYMENT = {
+  eg: ["Cash | كاش","10% | 10%","15% | 15%","20% | 20%","25% | 25%","30%+ | 30% أو أكثر","Not sure | غير متأكد"],
+  uae:["Cash | كاش","10% | 10%","20% | 20%","30% | 30%","40%+ | 40% أو أكثر","Not sure | غير متأكد"]
+};
+
+const RENT_TIMELINE = ["Now | فورًا","Within 1 month | خلال شهر","1–3 months | من شهر إلى 3 شهور","3–6 months | من 3 إلى 6 شهور","Not sure | غير محدد"];
+const AVAILABILITY = ["Available now | متاح الآن","Within 1 month | خلال شهر","1–3 months | 1–3 شهور","Not sure | غير محدد"];
+
+/* ================= UI HELPERS ================= */
+const $ = id => document.getElementById(id);
+
+function setOptions(selectEl, options, placeholder="Select | اختر") {
+  selectEl.innerHTML = `<option value="" disabled selected>${placeholder}</option>` +
+    options.map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join("");
+}
+
+function escapeHtml(s){
+  return String(s)
+    .replaceAll("&","&amp;").replaceAll("<","&lt;")
+    .replaceAll(">","&gt;").replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function show(el){ el.classList.remove("hidden"); }
+function hide(el){ el.classList.add("hidden"); }
+
+function setRequired(el, yes){
+  if (!el) return;
+  if (yes) el.setAttribute("required","required");
+  else el.removeAttribute("required");
+}
+
+function err(msg){ $("errBox").textContent = msg; $("errBox").classList.remove("hidden"); }
+function clearErr(){ $("errBox").classList.add("hidden"); $("errBox").textContent = ""; }
+
+/* ================= INIT SELECTS ================= */
+setOptions($("country"), countries.map(c=>c.label), "Select country | اختر الدولة");
+setOptions($("action"), actions.map(a=>a.label), "Select | اختر");
+setOptions($("unitType"), unitTypes, "Select | اختر");
+
+$("country").value = countries.find(c=>c.code===preCountry)?.label || countries[0].label;
+$("action").value = actions[0].label;
+
+/* ================= PHONE ================= */
+const phoneInput = $("phone");
+const iti = window.intlTelInput(phoneInput, {
+  initialCountry: preCountry === "uae" ? "ae" : "eg",
+  preferredCountries: ["eg","ae","sa","kw","qa","om","bh"],
   separateDialCode: true,
-  preferredCountries: ['eg','ae','sa','kw','qa','om','bh','jo','us','gb'],
-  utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/utils.js'
+  utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/utils.js"
 });
 
-// ---------- Submit ----------
-let sending = false;
-document.getElementById('leadForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-  if (sending) return;
+/* ================= DYNAMIC UI ================= */
+function getCountryCode(){
+  const label = $("country").value;
+  const c = countries.find(x=>x.label===label);
+  return c ? c.code : "eg";
+}
+function getActionCode(){
+  const label = $("action").value;
+  const a = actions.find(x=>x.label===label);
+  return a ? a.code : "buy";
+}
 
-  // validation
-  const digits = phoneEl.value.replace(/\D/g, '');
-  if (digits.length < 6) { alert(T('Please enter your WhatsApp number.', 'من فضلك اكتب رقم الواتساب.')); return; }
-  for (const f of FIELDS) {
-    if (!f.optional && !document.getElementById(f.id).value) {
-      alert(T('Please complete: ', 'من فضلك أكمل: ') + T(f.en, f.ar));
-      document.getElementById(f.id).focus();
-      return;
+function updateByCountry(){
+  const cc = getCountryCode();
+  // areas
+  setOptions($("area"), cc==="eg" ? EG_AREAS : UAE_AREAS, "Select | اختر");
+
+  // buy budgets, timelines, downpayment
+  setOptions($("buyBudget"), BUY_BUDGETS[cc], "Select | اختر");
+  setOptions($("timelineOrDelivery"), BUY_TIMELINE[cc], "Select | اختر");
+  setOptions($("downPayment"), DOWNPAYMENT[cc], "Select | اختر");
+
+  // purpose/source based on country
+  if (cc === "eg") setOptions($("purposeOrSource"), EG_SOURCE, "Select | اختر");
+  else setOptions($("purposeOrSource"), UAE_PURPOSE, "Select | اختر");
+
+  // rent budgets
+  setOptions($("rentBudget"), RENT_BUDGETS[cc], "Select | اختر");
+  setOptions($("rentTimeline"), RENT_TIMELINE, "Select | اختر");
+  setOptions($("sellOutTimeline"), AVAILABILITY, "Select | اختر");
+
+  // currency hints
+  const c = countries.find(x=>x.code===cc);
+  $("dpCurrencyHint").textContent = `Currency: ${c.currencyGeneric} | العملة: ${cc==="eg"?"جنيه":"درهم"}`;
+  $("priceCurrencyHint").textContent = `Currency: ${c.currencyGeneric} | العملة: ${cc==="eg"?"جنيه":"درهم"}`;
+
+  // Egypt installment only
+  if (cc==="eg") show($("installWrap")); else hide($("installWrap"));
+
+  // update phone country
+  iti.setCountry(cc==="uae" ? "ae" : "eg");
+}
+
+function updateByAction(){
+  const ac = getActionCode();
+
+  // reset required
+  setRequired($("buyBudget"), false);
+  setRequired($("purposeOrSource"), false);
+  setRequired($("timelineOrDelivery"), false);
+  setRequired($("downPayment"), false);
+
+  setRequired($("rentBudget"), false);
+  setRequired($("rentTimeline"), false);
+
+  setRequired($("expectedPriceOrRent"), false);
+
+  // show/hide
+  hide($("buySection"));
+  hide($("rentInSection"));
+  hide($("sellOutSection"));
+
+  if (ac === "buy") {
+    show($("buySection"));
+    setRequired($("buyBudget"), true);
+    setRequired($("purposeOrSource"), true);
+    setRequired($("timelineOrDelivery"), true);
+    setRequired($("downPayment"), true);
+  } else if (ac === "rent_in") {
+    show($("rentInSection"));
+    setRequired($("rentBudget"), true);
+    setRequired($("rentTimeline"), true);
+  } else if (ac === "sell" || ac === "rent_out") {
+    show($("sellOutSection"));
+    setRequired($("expectedPriceOrRent"), true);
+  }
+
+  // price label nuance
+  if (ac === "sell") {
+    $("priceLbl").innerHTML =
+      `<span class="en">Expected selling price <span class="req">*</span></span>
+       <span class="ar">سعر البيع المتوقع <span class="req">*</span></span>`;
+  } else if (ac === "rent_out") {
+    $("priceLbl").innerHTML =
+      `<span class="en">Expected monthly rent <span class="req">*</span></span>
+       <span class="ar">قيمة الإيجار الشهري المتوقعة <span class="req">*</span></span>`;
+  }
+}
+
+$("country").addEventListener("change", () => { updateByCountry(); updateByAction(); });
+$("action").addEventListener("change", () => { updateByAction(); });
+
+updateByCountry();
+updateByAction();
+
+/* ================= SUBMIT ================= */
+$("leadForm").addEventListener("submit", async (ev) => {
+  ev.preventDefault();
+  clearErr();
+
+  // base required fields
+  const name = $("name").value.trim();
+  const area = $("area").value;
+  const unitType = $("unitType").value;
+  if (!name || !area || !unitType) { return err("Please complete required fields. | من فضلك أكمل الحقول المطلوبة."); }
+
+  // phone
+  if (!phoneInput.value.trim() || (iti.isValidNumber && !iti.isValidNumber())) {
+    return err("Please enter a valid phone number. | من فضلك أدخل رقم صحيح.");
+  }
+  const phone = iti.getNumber();
+
+  const cc = getCountryCode();
+  const ac = getActionCode();
+
+  // collect action fields
+  let budget = "";
+  let expectedPriceOrRent = "";
+  let purposeOrSource = "";
+  let timelineOrDelivery = "";
+  let downPayment = "";
+  let downPaymentAmount = "";
+  let maxInstallment = "";
+
+  if (ac === "buy") {
+    budget = $("buyBudget").value;
+    purposeOrSource = $("purposeOrSource").value;
+    timelineOrDelivery = $("timelineOrDelivery").value;
+    downPayment = $("downPayment").value;
+    downPaymentAmount = ($("downPaymentAmount").value || "").trim();
+    maxInstallment = cc==="eg" ? ($("maxInstallment").value || "").trim() : "";
+    if (!budget || !purposeOrSource || !timelineOrDelivery || !downPayment) {
+      return err("Please complete required fields. | من فضلك أكمل الحقول المطلوبة.");
+    }
+  } else if (ac === "rent_in") {
+    budget = $("rentBudget").value;
+    timelineOrDelivery = $("rentTimeline").value;
+    if (!budget || !timelineOrDelivery) {
+      return err("Please complete required fields. | من فضلك أكمل الحقول المطلوبة.");
+    }
+  } else if (ac === "sell" || ac === "rent_out") {
+    expectedPriceOrRent = ($("expectedPriceOrRent").value || "").trim();
+    timelineOrDelivery = $("sellOutTimeline").value || "";
+    if (!expectedPriceOrRent) {
+      return err("Please enter the expected price/rent. | من فضلك أدخل السعر/الإيجار المتوقع.");
     }
   }
 
-  sending = true;
-  const btn = document.getElementById('btn');
-  btn.disabled = true;
-  btn.textContent = T('Sending…', 'جاري الإرسال…');
+  const notes = $("notes").value.trim();
 
-  const name = document.getElementById('name').value.trim();
-  const phone = iti.getNumber() || ('+' + digits);
-  const v = id => (document.getElementById(id) ? document.getElementById(id).value.trim() : '');
+  // readable country/action labels
+  const countryLabel = $("country").value;
+  const actionLabel = $("action").value;
 
-  // human-readable label of a select in current language
-  const shown = id => {
-    const el = document.getElementById(id);
-    return el && el.tagName === 'SELECT' && el.selectedIndex > 0 ? el.options[el.selectedIndex].textContent : v(id);
-  };
+  // Build WhatsApp message (Bilingual)
+  const msgLines = [];
+  msgLines.push(`SANAD MAAMOUR Lead`);
+  msgLines.push(`Country: ${countryLabel}`);
+  msgLines.push(`Action: ${actionLabel}`);
+  msgLines.push(`Name: ${name}`);
+  msgLines.push(`Phone: ${phone}`);
+  msgLines.push(`Area: ${area}`);
+  msgLines.push(`Unit type: ${unitType}`);
+  if (budget) msgLines.push(`Budget: ${budget}`);
+  if (expectedPriceOrRent) msgLines.push(`Expected: ${expectedPriceOrRent} (${cc==="eg"?"EGP":"AED"})`);
+  if (purposeOrSource) msgLines.push(`Purpose/Source: ${purposeOrSource}`);
+  if (timelineOrDelivery) msgLines.push(`Timeline/Delivery: ${timelineOrDelivery}`);
+  if (downPayment) msgLines.push(`Down payment: ${downPayment}`);
+  if (downPaymentAmount) msgLines.push(`Down payment amount: ${downPaymentAmount} (${cc==="eg"?"EGP":"AED"})`);
+  if (maxInstallment) msgLines.push(`Max installment: ${maxInstallment} EGP`);
+  if (notes) msgLines.push(`Notes: ${notes}`);
 
-  const dpFull = v('dp') + (v('dpAmount') ? ' | ' + v('dpAmount') : '');
+  msgLines.push("");
+  msgLines.push("—");
+  msgLines.push("مرحبا، برجاء إرسال الخيارات المتاحة المناسبة. / Please send matched available options.");
 
-  // WhatsApp message (client sends it from his own phone)
-  const lines = [];
-  lines.push(T('Hello SANAD MAAMOUR, I would like property advice. My details:',
-               'مرحبًا سند معمور، أرغب في استشارة عقارية. بياناتي:'));
-  lines.push(T('Market: ', 'السوق: ') + (market === 'uae' ? T('UAE', 'الإمارات') : T('Egypt', 'مصر')));
-  FIELDS.forEach(f => {
-    const val = shown(f.id);
-    if (val) lines.push(T(f.en, f.ar) + ': ' + val);
-  });
-  if (name) lines.push(T('Name: ', 'الاسم: ') + name);
-  lines.push(T('Phone: ', 'الهاتف: ') + phone);
-  const msg = lines.join('\n');
-  const waLink = 'https://wa.me/' + WA[market] + '?text=' + encodeURIComponent(msg);
+  const waUrl = `https://wa.me/${WA_NUMBERS[cc]}?text=${encodeURIComponent(msgLines.join("\n"))}`;
 
-  // payload for Google Sheet (English values for clean analysis)
+  // Payload for sheet
   const payload = {
-    market: market, lang: lang, name: name, phone: phone,
-    budget: v('budget'), area: v('area'), unit: v('unit'),
-    purpose: v('purpose'), source: v('source'),
-    dp: dpFull, install: v('install'),
-    utm_source: utm.source, utm_medium: utm.medium,
-    utm_campaign: utm.campaign, utm_content: utm.content,
-    landing: location.href, waMsg: msg
+    country: countryLabel,
+    action: actionLabel,
+    name,
+    phone,
+    area,
+    unitType,
+    budget,
+    expectedPriceOrRent,
+    purposeOrSource,
+    timelineOrDelivery,
+    downPayment,
+    downPaymentAmount,
+    maxInstallment,
+    notes,
+    ...utm
   };
 
-  const send = fetch(SCRIPT_URL, {
-    method: 'POST', mode: 'no-cors', keepalive: true,
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify(payload)
-  }).catch(() => {});
-  const maxWait = new Promise(r => setTimeout(r, 2500));
+  const btn = $("submitBtn");
+  btn.disabled = true;
+  btn.textContent = "Sending… | جاري الإرسال…";
 
-  Promise.race([send, maxWait]).then(() => {
-    const fb = document.getElementById('fallback');
-    document.getElementById('fallbackLink').href = waLink;
-    document.getElementById('fallbackLink').textContent =
-      T('If WhatsApp did not open, tap here', 'لو واتساب لم يفتح، اضغط هنا');
-    fb.style.display = 'block';
-    btn.textContent = T('Opening WhatsApp…', 'جاري فتح واتساب…');
-    window.location.href = waLink;
-  });
+  try {
+    await fetch(WEB_APP_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    });
+
+    $("waBtn").href = waUrl;
+    hide($("formCard"));
+    show($("successCard"));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+  } catch (e) {
+    btn.disabled = false;
+    btn.textContent = "Submit | إرسال";
+    err("Something went wrong. Please try again. | حدث خطأ، حاول مرة أخرى.");
+  }
 });
 </script>
 </body>
